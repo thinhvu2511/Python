@@ -13,7 +13,7 @@ def getAllertToFile(url):
 	soup = BeautifulSoup(resp.content, "html.parser") #xem sourcecode cua url
 	allert = soup.select('.view-content .item-list .views-field .field-content a') 
 		
-	# lay ma so va ten allert
+	# Select name and id allert
 	for ele in allert:
 		list = []
 		urlAllert = 'https://cisa.gov/uscert' + ele['href']
@@ -47,9 +47,11 @@ def getAllertToFile(url):
 		listsAllert.append(list)
 
 	# Write file	
-	with open("allert.csv", mode='w') as file:
+	with open("allert.csv", mode='w', newline='') as file:
 		writer = csv.writer(file)
 		writer.writerow(['Alert ID', 'Alert Name', 'Release Date', 'Last revised', 'Alert Link'])
 		writer.writerows(listsAllert)
 
-getAllertToFile(url)
+if __name__ == '__main__':
+	getAllertToFile(url)
+	print("Successfully.")
